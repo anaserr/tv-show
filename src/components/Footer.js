@@ -11,7 +11,8 @@ const useStyles = makeStyles(theme => ({
         padding: theme.spacing(3, 2),
         marginTop: 'auto',
         backgroundColor: theme.palette.grey[200],
-        color: '#3C948B'
+        color: '#3C948B',
+        textAlign: "center"
     },
     button: {
         marginRight: theme.spacing(2),
@@ -26,7 +27,7 @@ function Footer() {
                 <Typography variant="body2" color="textSecondary">
                 Copyright ©  
                 <Link color="inherit" href="/">
-                    www.tvshow.com
+                    NOBO TV SHOW
                 </Link>
                 {` ${new Date().getFullYear()-5} - ${new Date().getFullYear()}.`}
                 
