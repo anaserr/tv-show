@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import { Container, TextField, Grid, Button, LinearProgress, List } from '@material-ui/core';
+import { Container, TextField, Grid, Button, LinearProgress, List,Dialog,DialogTitle,DialogContent,DialogContentText,DialogActions } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import TvShowItem from './TvShowItem';
+import { Link } from 'react-router-dom';
 
 
 
@@ -36,20 +37,37 @@ function MainContainer() {
     const [loading, setLoading] = useState(false);
     const [listShow, setListShow] = useState([ ]);
     const [queryBtnClick, setQueryBtnClick] = useState('');
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
-        fetch(`https://api.tvmaze.com/search/shows?q=${query}`)
-            .then(res=>res.json())
-            .then(data=>{
-                console.log(data);
-                setListShow(data);
-                setLoading(false);
-            });
-            
+        // fetch(`https://api.tvmaze.com/search/shows?q=${query}`)
+        //     .then(res=>res.json())
+        //     .then(data=>{
+        //         console.log(data);
+        //         setListShow(data);
+        //         setLoading(false);
+        //         if(data.length === 0 && queryBtnClick.trim() !== '') {
+        //             setOpen(true); 
+        //         }
+        //         setQuery('');
+        //     });
+        fetchData();
         return () => {
             console.log('done');
         }
     }, [queryBtnClick]);
+
+    const fetchData = async () => {
+        const list = await fetch(`https://api.tvmaze.com/search/shows?q=${query}`)
+            .then(res=>res.json());
+        setListShow(list);
+        setLoading(false);
+        if(list.length === 0 && queryBtnClick.trim() !== '') {
+            setOpen(true); 
+        }
+        setQueryBtnClick('');
+
+    }
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -58,6 +76,31 @@ function MainContainer() {
         setQueryBtnClick(query);
     }
 
+    const handleClose = () => {
+        setOpen(false);
+    }
+    const showDialog = () => {
+        return (
+            <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">{"Empty response"}</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                No result with your input
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose} color="primary" autoFocus>
+                Okay
+              </Button>
+            </DialogActions>
+          </Dialog>
+        )
+    }
     return(
         <Container maxWidth="md" className={classes.main}>
         <form onSubmit={submitHandler}>
@@ -92,14 +135,20 @@ function MainContainer() {
                     {
                     listShow.map(item => 
                         
-                        <TvShowItem show={item.show} key={item.show.id}/>
+                        <Link to={`tv-show-detail/${item.show.id}`} style={{ textDecoration: 'none' }} key={item.show.id}>
+                            <TvShowItem show={item.show} />
+                        </Link>
                     )}
                 </List>
             }
+            {showDialog()}
         </div>
         
         </Container>
     )
+
+    
 }
+
 
 export default MainContainer;

@@ -3,6 +3,7 @@ import { AppBar, Toolbar, Typography } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import HomeIcon from '@material-ui/icons/Home';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     header: {
@@ -25,7 +26,7 @@ function Header(){
         <header className={classes.header}>
             <AppBar position="static" className={classes.appBar}>
                 <Toolbar>
-                    <IconButton edge="start" className={classes.homeButton} color="inherit" aria-label="home">
+                    <IconButton edge="start" className={classes.homeButton} color="inherit" aria-label="home" href="/">
                         <HomeIcon />
                     </IconButton>
                     <Typography variant="h6" className={classes.title}>Nobo TV Show</Typography>
