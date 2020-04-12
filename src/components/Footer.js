@@ -38,7 +38,7 @@ function Footer() {
                 <IconButton edge="start" className={classes.button} color="inherit" aria-label="twitter">
                     <TwitterIcon />
                 </IconButton>
-                <IconButton edge="start" className={classes.button} color="inherit" aria-label="instagram">
+                <IconButton edge="start" className={classes.button} color="inherit" aria-label="instagram" target="_blank" href="https://www.instagram.com/anas_err01/">
                     <InstagramIcon />
                 </IconButton>
                 <IconButton edge="start" className={classes.button} color="inherit" aria-label="youtube">

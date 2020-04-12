@@ -40,17 +40,6 @@ function MainContainer() {
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
-        // fetch(`https://api.tvmaze.com/search/shows?q=${query}`)
-        //     .then(res=>res.json())
-        //     .then(data=>{
-        //         console.log(data);
-        //         setListShow(data);
-        //         setLoading(false);
-        //         if(data.length === 0 && queryBtnClick.trim() !== '') {
-        //             setOpen(true); 
-        //         }
-        //         setQuery('');
-        //     });
         fetchData();
         return () => {
             console.log('done');
